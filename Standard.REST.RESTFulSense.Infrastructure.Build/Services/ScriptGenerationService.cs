@@ -20,7 +20,7 @@ namespace Standard.REST.RESTFulSense.Infrastructure.Build.Services
         {
             var githubPipeline = new GithubPipeline
             {
-                Name = "Standard.API.RESTFulSense Build",
+                Name = "Standard.REST.RESTFulSense Build",
 
                 OnEvents = new Events
                 {

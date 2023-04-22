@@ -1,1 +1,1 @@
-# Standard.API.RESTFulSense
+# Standard.REST.RESTFulSense
