@@ -1,4 +1,8 @@
-﻿using Standard.API.RESTFulSense.Infrastructure.Build.Services;
+﻿// ---------------------------------------------------------------
+// Copyright (c) 2023 - The Standard Community - All rights reserved.
+// ---------------------------------------------------------------
+
+using Standard.REST.RESTFulSense.Infrastructure.Build.Services;
 
 namespace Standard.REST.RESTFulSense.Infrastructure.Build
 {
