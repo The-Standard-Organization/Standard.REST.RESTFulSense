@@ -1,6 +1,6 @@
 ﻿using Standard.API.RESTFulSense.Infrastructure.Build.Services;
 
-namespace Standard.API.RESTFulSense.Infrastructure.Build
+namespace Standard.REST.RESTFulSense.Infrastructure.Build
 {
     internal class Program
     {

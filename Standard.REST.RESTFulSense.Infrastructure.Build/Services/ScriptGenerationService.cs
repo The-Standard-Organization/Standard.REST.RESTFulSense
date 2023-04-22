@@ -1,16 +1,20 @@
-﻿using ADotNet.Clients;
+﻿// ---------------------------------------------------------------
+// Copyright (c) 2023 - The Standard Community - All rights reserved.
+// ---------------------------------------------------------------
+
+using ADotNet.Clients;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
 
-namespace Standard.API.RESTFulSense.Infrastructure.Build.Services
+namespace Standard.REST.RESTFulSense.Infrastructure.Build.Services
 {
     internal class ScriptGenerationService
     {
         private readonly ADotNetClient adotNetClient;
 
         public ScriptGenerationService() =>
-            this.adotNetClient = new ADotNetClient();
+            adotNetClient = new ADotNetClient();
 
         public void GenerateBuildScript()
         {
