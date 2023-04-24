@@ -35,6 +35,9 @@
 			<PackagePath>\</PackagePath>
 		</None>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<None Update="Data\StatusCodes.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="license.txt">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
