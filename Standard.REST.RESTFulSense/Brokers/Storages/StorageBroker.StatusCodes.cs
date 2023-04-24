@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Linq;
+using System.Threading.Tasks;
 using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
 
 namespace Standard.REST.RESTFulSense.Brokers.Storages
@@ -15,5 +16,8 @@ namespace Standard.REST.RESTFulSense.Brokers.Storages
         {
             return this.statusCodes;
         }
+
+        public async ValueTask<StatusCode> SelectStatusCodeByCodeAsync(int code) =>
+            await Task.FromResult(this.statusCodes.FirstOrDefault(statusCode => statusCode.Code == code));
     }
 }
