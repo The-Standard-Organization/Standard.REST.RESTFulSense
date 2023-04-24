@@ -1,4 +1,4 @@
-﻿Standard.API.RESTFulSense.Core - .NET Core Library
+﻿Standard.REST.RESTFulSense.Core - .NET Core Library
 
 Copyright (c) 2022 - The Standard Community - All rights reserved.
 
