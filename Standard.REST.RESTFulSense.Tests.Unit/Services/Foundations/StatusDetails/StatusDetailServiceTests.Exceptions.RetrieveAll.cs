@@ -45,5 +45,40 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public void ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccursAndLogItAsync()
+        {
+            // given
+            string exceptionMessage = GetRandomString();
+            var serviceException = new Exception(exceptionMessage);
+
+            var failedStatusDetailServiceException =
+                new FailedStatusDetailServiceException(serviceException);
+
+            var expectedStatusDetailServiceException =
+                new StatusDetailServiceException(failedStatusDetailServiceException);
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.SelectAllStatusDetails())
+                    .Throws(serviceException);
+
+            // when
+            Action retrieveAllStatusDetailsAction = () =>
+                this.statusDetailService.RetrieveAllStatusDetails();
+
+            StatusDetailServiceException actualStatusDetailServiceException =
+                Assert.Throws<StatusDetailServiceException>(retrieveAllStatusDetailsAction);
+
+            // then
+            actualStatusDetailServiceException.Should()
+                .BeEquivalentTo(expectedStatusDetailServiceException);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectAllStatusDetails(),
+                    Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }

@@ -100,6 +100,13 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
                 throw CreateAndLogDependencyException(failedStatusDetailStorageException);
             }
+            catch (Exception exception)
+            {
+                var failedStatusDetailServiceException =
+                    new FailedStatusDetailServiceException(exception);
+
+                throw CreateAndLogServiceException(failedStatusDetailServiceException);
+            }
         }
 
         private StatusDetail TryCatch(ReturningStatusDetailFunction returningStatusDetailFunction)
@@ -128,6 +135,14 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
                 new StatusDetailValidationException(exception);
 
             return statusDetailValidationException;
+        }
+
+        private StatusDetailServiceException CreateAndLogServiceException(Xeption exception)
+        {
+            var statusDetailServiceException =
+                new StatusDetailServiceException(exception);
+
+            return statusDetailServiceException;
         }
     }
 }
