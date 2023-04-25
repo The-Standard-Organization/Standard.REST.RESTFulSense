@@ -3,6 +3,7 @@
 // -------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Moq;
@@ -50,17 +51,23 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         private static string GetRandomString() =>
             new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
-        private static int GetRandomNumber() =>
-            new IntRange(min: 2, max: 10).GetValue();
+        private static int GetRandomNumber(int min = 2, int max = 10) =>
+            new IntRange(min, max).GetValue();
 
-        private static IQueryable<StatusDetail> CreateRandomStatusDetails()
+        private static IQueryable<StatusDetail> CreateRandomStatusDetails(int randomNumber)
         {
-            return CreateStatusDetailFiller()
-                .Create(count: GetRandomNumber())
-                    .AsQueryable();
+            List<StatusDetail> statusDetails = new List<StatusDetail>();
+
+            for (int i = 0; i < randomNumber; i++)
+            {
+                int statusCode = 400 + i;
+                statusDetails.Add(CreateStatusDetailFiller(statusCode).Create());
+            }
+
+            return statusDetails.AsQueryable();
         }
 
-        private static Filler<StatusDetail> CreateStatusDetailFiller()
+        private static Filler<StatusDetail> CreateStatusDetailFiller(int statusCode)
         {
             var filler = new Filler<StatusDetail>();
             filler.Setup();

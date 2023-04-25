@@ -17,5 +17,8 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
         public IQueryable<StatusDetail> RetrieveAllStatusDetails() =>
             TryCatch(() => this.storageBroker.SelectAllStatusDetails());
+
+        public StatusDetail RetrieveStatusDetailByCode(int statusCode) =>
+            throw new System.NotImplementedException();
     }
 }
