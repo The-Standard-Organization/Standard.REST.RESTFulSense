@@ -9,6 +9,6 @@ namespace Standard.REST.RESTFulSense.Brokers.Storages
 {
     internal partial interface IStorageBroker
     {
-        IQueryable<StatusDetail> SelectAllStatusCodes();
+        IQueryable<StatusDetail> SelectAllStatusDetails();
     }
 }

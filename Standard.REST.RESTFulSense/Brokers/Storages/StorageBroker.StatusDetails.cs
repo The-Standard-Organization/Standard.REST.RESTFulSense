@@ -11,7 +11,7 @@ namespace Standard.REST.RESTFulSense.Brokers.Storages
     {
         private IQueryable<StatusDetail> statusDetails { get; set; }
 
-        public IQueryable<StatusDetail> SelectAllStatusCodes() =>
+        public IQueryable<StatusDetail> SelectAllStatusDetails() =>
             statusDetails;
     }
 }
