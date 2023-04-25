@@ -99,13 +99,29 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
                 throw CreateAndLogDependencyException(failedStatusDetailStorageException);
             }
+            catch (Exception exception)
+            {
+                var failedStatusDetailServiceException =
+                    new FailedStatusDetailServiceException(exception);
+
+                throw CreateAndLogServiceException(failedStatusDetailServiceException);
+            }
         }
 
         private StatusDetailDependencyException CreateAndLogDependencyException(Xeption exception)
         {
-            var statusDetailDependencyException = new StatusDetailDependencyException(exception);
+            var statusDetailDependencyException =
+                new StatusDetailDependencyException(exception);
 
             return statusDetailDependencyException;
+        }
+
+        private StatusDetailServiceException CreateAndLogServiceException(Xeption exception)
+        {
+            var statusDetailServiceException =
+                new StatusDetailServiceException(exception);
+
+            return statusDetailServiceException;
         }
     }
 }
