@@ -31,15 +31,51 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     .Throws(dependancyException);
 
             // when
-            Action retrieveAllStatusDetailsAction = () =>
+            Action retrieveStatusDetailByCodeAction = () =>
                 this.statusDetailService.RetrieveStatusDetailByCode(someCode);
 
             StatusDetailDependencyException actualStatusDetailDependencyException =
-                Assert.Throws<StatusDetailDependencyException>(retrieveAllStatusDetailsAction);
+                Assert.Throws<StatusDetailDependencyException>(retrieveStatusDetailByCodeAction);
 
             // then
             actualStatusDetailDependencyException.Should()
                 .BeEquivalentTo(expectedStatusDetailDependencyException);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectAllStatusDetails(),
+                    Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public void ShouldThrowServiceExceptionOnRetrieveStatusDetailByCodeIfServiceErrorOccurs()
+        {
+            // given
+            int someCode = GetRandomNumber();
+            string exceptionMessage = GetRandomString();
+            var serviceException = new Exception(exceptionMessage);
+
+            var failedStatusDetailServiceException =
+                new FailedStatusDetailServiceException(serviceException);
+
+            var expectedStatusDetailServiceException =
+                new StatusDetailServiceException(failedStatusDetailServiceException);
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.SelectAllStatusDetails())
+                    .Throws(serviceException);
+
+            // when
+            Action retrieveStatusDetailByCodeAction = () =>
+                this.statusDetailService.RetrieveStatusDetailByCode(someCode);
+
+            StatusDetailServiceException actualStatusDetailServiceException =
+                Assert.Throws<StatusDetailServiceException>(retrieveStatusDetailByCodeAction);
+
+            // then
+            actualStatusDetailServiceException.Should()
+                .BeEquivalentTo(expectedStatusDetailServiceException);
 
             this.storageBrokerMock.Verify(broker =>
                 broker.SelectAllStatusDetails(),
