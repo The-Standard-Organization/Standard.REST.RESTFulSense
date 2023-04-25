@@ -2,7 +2,6 @@
 // Copyright (c) - The Standard Community - All rights reserved.
 // -------------------------------------------------------------
 
-using System;
 using System.Linq;
 using Standard.REST.RESTFulSense.Brokers.Storages;
 using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
@@ -17,6 +16,6 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
             this.storageBroker = storageBroker;
 
         public IQueryable<StatusDetail> RetrieveAllStatusDetails() =>
-            throw new NotImplementedException();
+            storageBroker.SelectAllStatusDetails();
     }
 }
