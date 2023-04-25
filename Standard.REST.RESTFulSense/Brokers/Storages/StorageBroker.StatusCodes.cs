@@ -9,9 +9,9 @@ namespace Standard.REST.RESTFulSense.Brokers.Storages
 {
     internal partial class StorageBroker
     {
-        private IQueryable<StatusDetail> statusCodes { get; set; }
+        private IQueryable<StatusDetail> statusDetails { get; set; }
 
         public IQueryable<StatusDetail> SelectAllStatusCodes() =>
-            statusCodes;
+            statusDetails;
     }
 }

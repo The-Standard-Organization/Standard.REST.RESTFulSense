@@ -13,7 +13,7 @@ namespace Standard.REST.RESTFulSense.Brokers.Storages
     internal partial class StorageBroker : IStorageBroker
     {
         public StorageBroker() =>
-            statusCodes = InitialiseStatusCodes();
+            statusDetails = InitialiseStatusCodes();
 
         private static IQueryable<StatusDetail> InitialiseStatusCodes()
         {
