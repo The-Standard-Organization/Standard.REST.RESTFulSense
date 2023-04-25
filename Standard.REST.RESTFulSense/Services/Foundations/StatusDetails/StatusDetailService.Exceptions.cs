@@ -196,6 +196,13 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
                 throw CreateAndLogDependencyException(failedStatusDetailStorageException);
             }
+            catch (Exception exception)
+            {
+                var failedStatusDetailServiceException =
+                    new FailedStatusDetailServiceException(exception);
+
+                throw CreateAndLogServiceException(failedStatusDetailServiceException);
+            }
         }
 
         private StatusDetailDependencyException CreateAndLogDependencyException(Xeption exception)
