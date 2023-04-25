@@ -15,7 +15,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     public partial class StatusDetailServiceTests
     {
         [Fact]
-        public void ShouldThrowNotFoundExceptionOnRetrieveByIdIfStatusDetailIsNotFoundAndLogItAsync()
+        public void ShouldThrowNotFoundExceptionOnRetrieveByIdIfStatusDetailIsNotFound()
         {
             // given
             int randomNumber = GetRandomNumber();
