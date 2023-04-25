@@ -15,6 +15,7 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
     internal partial class StatusDetailService
     {
         private delegate IQueryable<StatusDetail> ReturningStatusDetailsFunction();
+        private delegate StatusDetail ReturningStatusDetailFunction();
 
         private IQueryable<StatusDetail> TryCatch(ReturningStatusDetailsFunction returningStatusDetailsFunction)
         {
@@ -101,11 +102,32 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
             }
         }
 
+        private StatusDetail TryCatch(ReturningStatusDetailFunction returningStatusDetailFunction)
+        {
+            try
+            {
+                return returningStatusDetailFunction();
+            }
+            catch (NotFoundStatusDetailException notFoundStatusDetailException)
+            {
+                throw CreateAndLogValidationException(notFoundStatusDetailException);
+            }
+        }
+
         private StatusDetailDependencyException CreateAndLogDependencyException(Xeption exception)
         {
-            var statusDetailDependencyException = new StatusDetailDependencyException(exception);
+            var statusDetailDependencyException =
+                new StatusDetailDependencyException(exception);
 
             return statusDetailDependencyException;
+        }
+
+        private StatusDetailValidationException CreateAndLogValidationException(Xeption exception)
+        {
+            var statusDetailValidationException =
+                new StatusDetailValidationException(exception);
+
+            return statusDetailValidationException;
         }
     }
 }
