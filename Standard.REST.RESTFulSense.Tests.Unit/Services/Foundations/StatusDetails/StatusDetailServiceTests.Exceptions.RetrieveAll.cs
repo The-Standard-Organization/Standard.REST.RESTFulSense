@@ -14,7 +14,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     {
         [Theory]
         [MemberData(nameof(DependencyExceptions))]
-        public void ShouldThrowCriticalDependencyExceptionOnRetrieveAllWhenExceptionOccursAndLogIt(
+        public void ShouldThrowDependencyExceptionOnRetrieveAllWhenExceptionOccursAndLogIt(
             Exception dependancyException)
         {
             // given

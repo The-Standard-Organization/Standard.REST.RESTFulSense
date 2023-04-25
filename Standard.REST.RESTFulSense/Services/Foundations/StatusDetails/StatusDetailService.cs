@@ -16,6 +16,6 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
             this.storageBroker = storageBroker;
 
         public IQueryable<StatusDetail> RetrieveAllStatusDetails() =>
-            storageBroker.SelectAllStatusDetails();
+            TryCatch(() => this.storageBroker.SelectAllStatusDetails());
     }
 }
