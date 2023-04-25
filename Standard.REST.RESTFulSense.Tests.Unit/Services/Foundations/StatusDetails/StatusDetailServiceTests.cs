@@ -5,8 +5,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using Microsoft.Data.SqlClient;
 using Moq;
 using Newtonsoft.Json;
 using Standard.REST.RESTFulSense.Brokers.Storages;
@@ -27,9 +25,6 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
             this.storageBrokerMock = new Mock<IStorageBroker>();
             this.statusDetailService = new StatusDetailService(storageBroker: this.storageBrokerMock.Object);
         }
-
-        private static SqlException GetSqlException() =>
-            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
         public static TheoryData DependencyExceptions()
         {
