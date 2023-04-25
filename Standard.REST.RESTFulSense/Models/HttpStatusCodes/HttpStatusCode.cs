@@ -1,10 +1,10 @@
-﻿// ---------------------------------------------------------------
-// Copyright (c) 2023 - The Standard Community - All rights reserved.
-// ---------------------------------------------------------------
+﻿// -------------------------------------------------------------
+// Copyright (c) - The Standard Community - All rights reserved.
+// -------------------------------------------------------------
 
 namespace Standard.REST.RESTFulSense.Models.HttpStatusCodes
 {
-    internal enum StatusCodes
+    internal enum HttpStatusCode
     {
         Status100Continue = 100,
         Status101SwitchingProtocols = 101,

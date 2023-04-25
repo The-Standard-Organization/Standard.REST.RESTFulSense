@@ -1,6 +1,6 @@
-﻿// ---------------------------------------------------------------
-// Copyright (c) 2023 - The Standard Community - All rights reserved.
-// ---------------------------------------------------------------
+﻿// -------------------------------------------------------------
+// Copyright (c) - The Standard Community - All rights reserved.
+// -------------------------------------------------------------
 
 using System.Collections.Generic;
 using System.IO;
@@ -13,13 +13,14 @@ namespace Standard.REST.RESTFulSense.Brokers.Storages
     internal partial class StorageBroker : IStorageBroker
     {
         public StorageBroker() =>
-            this.InitialiseStatusCodes();
+            statusCodes = InitialiseStatusCodes();
 
-        private void InitialiseStatusCodes()
+        private static IQueryable<StatusDetail> InitialiseStatusCodes()
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), "Data\\StatusCodes.json");
             string json = File.ReadAllText(path);
-            this.statusCodes = JsonConvert.DeserializeObject<List<StatusCode>>(json).AsQueryable();
+
+            return JsonConvert.DeserializeObject<List<StatusDetail>>(json).AsQueryable();
         }
     }
 }

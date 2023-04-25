@@ -7,7 +7,7 @@ guidelines = 120
 #### Core EditorConfig Options ####
 
 #Formatting - header template
-file_header_template = ---------------------------------------------------------------\nCopyright (c) 2023 - The Standard Community - All rights reserved.\n---------------------------------------------------------------
+file_header_template = -------------------------------------------------------------\nCopyright (c) - The Standard Community - All rights reserved.\n-------------------------------------------------------------
 
 #sort System.* using directives alphabetically, and place them before other usings
 dotnet_sort_system_directives_first = true

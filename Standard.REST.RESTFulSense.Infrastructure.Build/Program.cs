@@ -1,6 +1,6 @@
-﻿// ---------------------------------------------------------------
-// Copyright (c) 2023 - The Standard Community - All rights reserved.
-// ---------------------------------------------------------------
+﻿// -------------------------------------------------------------
+// Copyright (c) - The Standard Community - All rights reserved.
+// -------------------------------------------------------------
 
 using Standard.REST.RESTFulSense.Infrastructure.Build.Services;
 

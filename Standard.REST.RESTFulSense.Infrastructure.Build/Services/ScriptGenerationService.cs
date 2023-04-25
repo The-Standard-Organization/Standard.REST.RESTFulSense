@@ -1,6 +1,6 @@
-﻿// ---------------------------------------------------------------
-// Copyright (c) 2023 - The Standard Community - All rights reserved.
-// ---------------------------------------------------------------
+﻿// -------------------------------------------------------------
+// Copyright (c) - The Standard Community - All rights reserved.
+// -------------------------------------------------------------
 
 using ADotNet.Clients;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets;

@@ -1,12 +1,12 @@
-﻿// ---------------------------------------------------------------
-// Copyright (c) 2023 - The Standard Community - All rights reserved.
-// ---------------------------------------------------------------
+﻿// -------------------------------------------------------------
+// Copyright (c) - The Standard Community - All rights reserved.
+// -------------------------------------------------------------
 
 using Newtonsoft.Json;
 
 namespace Standard.REST.RESTFulSense.Models.HttpStatusCodes
 {
-    internal class StatusCode
+    internal class StatusDetail
     {
         [JsonProperty("statusCode")]
         public int Code { get; set; }
