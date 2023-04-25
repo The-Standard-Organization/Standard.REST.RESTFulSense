@@ -4,7 +4,7 @@
 
 using Newtonsoft.Json;
 
-namespace Standard.REST.RESTFulSense.Models.HttpStatusCodes
+namespace Standard.REST.RESTFulSense.Models.Foundations.StatusDetails
 {
     internal class StatusDetail
     {

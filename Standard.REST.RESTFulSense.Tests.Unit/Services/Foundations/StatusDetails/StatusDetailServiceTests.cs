@@ -2,12 +2,18 @@
 // Copyright (c) - The Standard Community - All rights reserved.
 // -------------------------------------------------------------
 
+using System;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using Microsoft.Data.SqlClient;
 using Moq;
+using Newtonsoft.Json;
 using Standard.REST.RESTFulSense.Brokers.Storages;
-using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
+using Standard.REST.RESTFulSense.Models.Foundations.StatusDetails;
 using Standard.REST.RESTFulSense.Services.Foundations.StatusDetails;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetails
 {
@@ -21,6 +27,33 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
             this.storageBrokerMock = new Mock<IStorageBroker>();
             this.statusDetailService = new StatusDetailService(storageBroker: this.storageBrokerMock.Object);
         }
+
+        private static SqlException GetSqlException() =>
+            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+
+        public static TheoryData DependencyExceptions()
+        {
+            string randomMessage = GetRandomString();
+            string exceptionMessage = randomMessage;
+
+            return new TheoryData<Exception>
+            {
+                new JsonReaderException(exceptionMessage),
+                new JsonSerializationException(exceptionMessage),
+                new JsonException(exceptionMessage),
+                new ArgumentNullException(exceptionMessage),
+                new ArgumentException(exceptionMessage),
+                new PathTooLongException(exceptionMessage),
+                new DirectoryNotFoundException(exceptionMessage),
+                new FileNotFoundException(exceptionMessage),
+                new UnauthorizedAccessException(exceptionMessage),
+                new NotSupportedException(exceptionMessage),
+                new IOException(exceptionMessage),
+            };
+        }
+
+        private static string GetRandomString() =>
+            new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();

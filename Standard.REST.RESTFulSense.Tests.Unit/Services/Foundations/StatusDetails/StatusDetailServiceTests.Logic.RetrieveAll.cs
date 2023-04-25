@@ -5,7 +5,7 @@
 using System.Linq;
 using FluentAssertions;
 using Moq;
-using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
+using Standard.REST.RESTFulSense.Models.Foundations.StatusDetails;
 using Xunit;
 
 namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetails

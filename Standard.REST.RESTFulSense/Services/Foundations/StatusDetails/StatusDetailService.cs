@@ -4,7 +4,7 @@
 
 using System.Linq;
 using Standard.REST.RESTFulSense.Brokers.Storages;
-using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
+using Standard.REST.RESTFulSense.Models.Foundations.StatusDetails;
 
 namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 {

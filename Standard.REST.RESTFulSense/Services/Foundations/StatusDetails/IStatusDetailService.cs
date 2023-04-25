@@ -3,7 +3,7 @@
 // -------------------------------------------------------------
 
 using System.Linq;
-using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
+using Standard.REST.RESTFulSense.Models.Foundations.StatusDetails;
 
 internal interface IStatusDetailService
 {
