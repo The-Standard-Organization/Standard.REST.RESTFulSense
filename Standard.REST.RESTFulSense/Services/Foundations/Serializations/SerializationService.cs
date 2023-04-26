@@ -15,6 +15,11 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.Serializations
             this.serializationBroker = serializationBroker;
 
         public string Serialize<T>(T obj, JsonSerializerSettings settings = null) =>
-            serializationBroker.Serialize(obj, settings);
+            TryCatch(() =>
+            {
+                ValidateObjectIsNotNull(obj);
+
+                return serializationBroker.Serialize(obj, settings);
+            });
     }
 }
