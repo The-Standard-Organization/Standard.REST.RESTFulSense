@@ -10,5 +10,8 @@ namespace Standard.REST.RESTFulSense.Brokers.Serializations
     {
         public string Serialize<T>(T obj, JsonSerializerSettings settings = null) =>
             JsonConvert.SerializeObject(obj, settings);
+
+        public T Deserialize<T>(string json, JsonSerializerSettings settings = null) =>
+            JsonConvert.DeserializeObject<T>(json, settings);
     }
 }
