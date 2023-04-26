@@ -9,5 +9,5 @@ internal interface IStatusDetailService
 {
     IQueryable<StatusDetail> RetrieveAllStatusDetails();
     StatusDetail RetrieveStatusDetailByCode(int statusCode);
-    StatusDetail RetrieveStatusDetailByCode(HttpStatusCode statusCode);
+    StatusDetail RetrieveStatusDetailByCode(HttpStatusCode httpStatusCode);
 }
