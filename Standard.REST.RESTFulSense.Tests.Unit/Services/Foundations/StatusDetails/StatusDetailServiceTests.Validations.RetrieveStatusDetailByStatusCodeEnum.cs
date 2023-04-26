@@ -15,12 +15,13 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     public partial class StatusDetailServiceTests
     {
         [Fact]
-        public void ShouldThrowNotFoundExceptionOnRetrieveByCodeIfStatusDetailIsNotFound()
+        public void ShouldThrowNotFoundExceptionOnRetrieveByHttpStatusCodeIfStatusDetailIsNotFound()
         {
             // given
             int randomNumber = GetRandomNumber();
             int randomStatusCode = randomNumber;
-            int someStatusDetailId = randomStatusCode;
+            int someStatusCode = 200 + randomStatusCode;
+            HttpStatusCode someHttpStatusCode = (HttpStatusCode)(someStatusCode);
             IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(randomNumber);
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
 
@@ -29,14 +30,14 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     .Returns(storageStatusDetails);
 
             var notFoundStatusDetailException =
-                new NotFoundStatusDetailException(someStatusDetailId);
+                new NotFoundStatusDetailException(someStatusCode);
 
             var expectedStatusDetailValidationException =
                 new StatusDetailValidationException(notFoundStatusDetailException);
 
             // when
             Action retrieveStatusDetailByCodeAction = () =>
-                this.statusDetailService.RetrieveStatusDetailByCode(someStatusDetailId);
+                this.statusDetailService.RetrieveStatusDetailByCode(someHttpStatusCode);
 
             StatusDetailValidationException actualStatusDetailValidationException =
                 Assert.Throws<StatusDetailValidationException>(retrieveStatusDetailByCodeAction);
