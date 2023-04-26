@@ -28,5 +28,8 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
                 return maybeStatusDetail;
             });
+
+        public StatusDetail RetrieveStatusDetailByCode(HttpStatusCode statusCode) =>
+            throw new System.NotImplementedException();
     }
 }
