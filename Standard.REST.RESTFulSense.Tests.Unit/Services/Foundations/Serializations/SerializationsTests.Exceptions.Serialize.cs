@@ -50,5 +50,42 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.Serializati
 
             this.serializationBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(DependencyExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnSerializeIfArgumentErrorOccurs(
+            Exception dependancyException)
+        {
+            // given
+            Person somePerson = CreateRandomPerson();
+            JsonSerializerSettings someSettings = null;
+
+            var failedSerializationException =
+                new FailedSerializationException(dependancyException);
+
+            var expectedSerializationDependencyException =
+                new SerializationDependencyException(failedSerializationException);
+
+            this.serializationBrokerMock.Setup(broker =>
+                broker.Serialize(somePerson, someSettings))
+                    .Throws(dependancyException);
+
+            // when
+            Action serializeObjectAction = () =>
+                this.serializationService.Serialize(somePerson, someSettings);
+
+            SerializationDependencyException actualSerializationDependencyException =
+                Assert.Throws<SerializationDependencyException>(serializeObjectAction);
+
+            // then
+            actualSerializationDependencyException.Should()
+                .BeEquivalentTo(expectedSerializationDependencyException);
+
+            this.serializationBrokerMock.Verify(broker =>
+                broker.Serialize(somePerson, someSettings),
+                    Times.Once);
+
+            this.serializationBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
