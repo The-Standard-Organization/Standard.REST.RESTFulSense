@@ -3,6 +3,7 @@
 // -------------------------------------------------------------
 
 using System;
+using Newtonsoft.Json;
 using Standard.REST.RESTFulSense.Models.Foundations.Serializations.Exceptions;
 using Xeptions;
 
@@ -29,6 +30,34 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.Serializations
 
                 throw CreateAndLogDependencyValidationException(failedArgumentException);
             }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                var failedSerializationException =
+                    new FailedSerializationException(jsonSerializationException);
+
+                throw CreateAndLogDependencyException(failedSerializationException);
+            }
+            catch (JsonReaderException jsonReaderException)
+            {
+                var failedSerializationException =
+                    new FailedSerializationException(jsonReaderException);
+
+                throw CreateAndLogDependencyException(failedSerializationException);
+            }
+            catch (JsonWriterException jsonWriterException)
+            {
+                var failedSerializationException =
+                    new FailedSerializationException(jsonWriterException);
+
+                throw CreateAndLogDependencyException(failedSerializationException);
+            }
+            catch (JsonException jsonException)
+            {
+                var failedSerializationException =
+                    new FailedSerializationException(jsonException);
+
+                throw CreateAndLogDependencyException(failedSerializationException);
+            }
         }
 
         private SerializationValidationException CreateAndLogValidationException(Xeption exception)
@@ -45,6 +74,14 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.Serializations
                 new SerializationDependencyValidationException(exception);
 
             return serializationDependencyValidationException;
+        }
+
+        private SerializationDependencyException CreateAndLogDependencyException(Xeption exception)
+        {
+            var serializationDependencyException =
+                new SerializationDependencyException(exception);
+
+            return serializationDependencyException;
         }
     }
 }

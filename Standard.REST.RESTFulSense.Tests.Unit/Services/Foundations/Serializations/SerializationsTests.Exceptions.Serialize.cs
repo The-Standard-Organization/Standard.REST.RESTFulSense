@@ -3,7 +3,6 @@
 // -------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
@@ -16,7 +15,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.Serializati
     public partial class SerializationsTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSerializeIfArgumentErrorOccurs()
+        public void ShouldThrowDependencyValidationExceptionOnSerializeIfArgumentErrorOccurs()
         {
             // given
             Person somePerson = CreateRandomPerson();
@@ -53,7 +52,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.Serializati
 
         [Theory]
         [MemberData(nameof(DependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnSerializeIfArgumentErrorOccurs(
+        public void ShouldThrowDependencyExceptionOnSerializeIfArgumentErrorOccurs(
             Exception dependancyException)
         {
             // given
