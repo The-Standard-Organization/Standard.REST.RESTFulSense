@@ -51,11 +51,24 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         private static string GetRandomString() =>
             new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
-        private static int GetRandomNumber(int min = 2, int max = 10) =>
+        private static int GetRandomNumber(int min = 2, int max = 8) =>
             new IntRange(min, max).GetValue();
 
-        private static IQueryable<StatusDetail> CreateRandomStatusDetails(int randomNumber)
+        private static StatusDetail GetRandomStatusDetail(IQueryable<StatusDetail> storageStatusDetails)
         {
+            Random random = new Random();
+
+            StatusDetail randomStatusDetail = storageStatusDetails
+                .OrderBy(statusDetail => random.Next())
+                    .Take(1)
+                        .SingleOrDefault();
+
+            return randomStatusDetail;
+        }
+
+        private static IQueryable<StatusDetail> CreateRandomStatusDetails()
+        {
+            int randomNumber = GetRandomNumber();
             List<StatusDetail> statusDetails = new List<StatusDetail>();
 
             for (int i = 0; i < randomNumber; i++)

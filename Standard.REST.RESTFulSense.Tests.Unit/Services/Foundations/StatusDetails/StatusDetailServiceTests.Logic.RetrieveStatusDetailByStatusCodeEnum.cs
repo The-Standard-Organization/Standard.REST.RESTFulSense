@@ -2,7 +2,6 @@
 // Copyright (c) - The Standard Community - All rights reserved.
 // -------------------------------------------------------------
 
-using System;
 using System.Linq;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -15,19 +14,14 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     public partial class StatusDetailServiceTests
     {
         [Fact]
-        public void ShouldReturnStatusDetailByStatusCode()
+        public void ShouldReturnStatusDetailByStatusCodeEnum()
         {
             // given
             IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails();
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
-            Random random = new Random();
-
-            StatusDetail randomStatusDetail = storageStatusDetails
-                .OrderBy(statusDetail => random.Next())
-                    .Take(1)
-                        .SingleOrDefault();
-
+            StatusDetail randomStatusDetail = GetRandomStatusDetail(storageStatusDetails);
             StatusDetail inputStatusDetail = randomStatusDetail;
+            HttpStatusCode inputHttpStatusCode = (HttpStatusCode)inputStatusDetail.Code;
             StatusDetail expectedStatusDetail = inputStatusDetail.DeepClone();
 
             this.storageBrokerMock.Setup(broker =>
@@ -36,7 +30,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
 
             // when
             StatusDetail actualStatusDetail =
-                this.statusDetailService.RetrieveStatusDetailByCode(inputStatusDetail.Code);
+                this.statusDetailService.RetrieveStatusDetailByCode(inputHttpStatusCode);
 
             // then
             actualStatusDetail.Should().BeEquivalentTo(expectedStatusDetail);

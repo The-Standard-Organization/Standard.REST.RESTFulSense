@@ -15,12 +15,11 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     public partial class StatusDetailServiceTests
     {
         [Fact]
-        public void ShouldThrowNotFoundExceptionOnRetrieveByCodeIfStatusDetailIsNotFound()
+        public void ShouldThrowNotFoundExceptionOnRetrieveByHttpStatusCodeIfStatusDetailIsNotFound()
         {
             // given
-            int randomNumber = GetRandomNumber();
-            int randomStatusCode = randomNumber;
-            int someStatusDetailId = randomStatusCode;
+            int someStatusCode = GetRandomStatusCode(startFrom: 200);
+            HttpStatusCode someHttpStatusCode = (HttpStatusCode)(someStatusCode);
             IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails();
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
 
@@ -29,14 +28,14 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     .Returns(storageStatusDetails);
 
             var notFoundStatusDetailException =
-                new NotFoundStatusDetailException(someStatusDetailId);
+                new NotFoundStatusDetailException(someStatusCode);
 
             var expectedStatusDetailValidationException =
                 new StatusDetailValidationException(notFoundStatusDetailException);
 
             // when
             Action retrieveStatusDetailByCodeAction = () =>
-                this.statusDetailService.RetrieveStatusDetailByCode(someStatusDetailId);
+                this.statusDetailService.RetrieveStatusDetailByCode(someHttpStatusCode);
 
             StatusDetailValidationException actualStatusDetailValidationException =
                 Assert.Throws<StatusDetailValidationException>(retrieveStatusDetailByCodeAction);
@@ -49,6 +48,14 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+
+        private static int GetRandomStatusCode(int startFrom)
+        {
+            int randomNumber = GetRandomNumber();
+            int randomStatusCode = randomNumber;
+
+            return startFrom + randomStatusCode;
         }
     }
 }
