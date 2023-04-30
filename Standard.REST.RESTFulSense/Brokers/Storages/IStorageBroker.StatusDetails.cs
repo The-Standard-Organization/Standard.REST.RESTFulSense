@@ -3,15 +3,12 @@
 // -------------------------------------------------------------
 
 using System.Linq;
-using Standard.REST.RESTFulSense.Models.HttpStatusCodes;
+using Standard.REST.RESTFulSense.Models.Foundations.StatusDetails;
 
 namespace Standard.REST.RESTFulSense.Brokers.Storages
 {
-    internal partial class StorageBroker
+    internal partial interface IStorageBroker
     {
-        private IQueryable<StatusDetail> statusDetails { get; set; }
-
-        public IQueryable<StatusDetail> SelectAllStatusCodes() =>
-            statusDetails;
+        IQueryable<StatusDetail> SelectAllStatusDetails();
     }
 }
