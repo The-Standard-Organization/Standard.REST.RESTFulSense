@@ -16,7 +16,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         public void ShouldReturnStatusDetails()
         {
             // given
-            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(GetRandomNumber());
+            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails();
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
             IQueryable<StatusDetail> expectedStatusDetails = storageStatusDetails;
 

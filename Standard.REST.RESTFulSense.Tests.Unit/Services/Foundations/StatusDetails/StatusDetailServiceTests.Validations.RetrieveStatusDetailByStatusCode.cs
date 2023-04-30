@@ -21,7 +21,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
             int randomNumber = GetRandomNumber();
             int randomStatusCode = randomNumber;
             int someStatusDetailId = randomStatusCode;
-            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(randomNumber);
+            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails();
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
 
             this.storageBrokerMock.Setup(broker =>

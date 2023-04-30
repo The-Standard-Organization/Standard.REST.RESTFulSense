@@ -18,11 +18,9 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         public void ShouldThrowNotFoundExceptionOnRetrieveByHttpStatusCodeIfStatusDetailIsNotFound()
         {
             // given
-            int randomNumber = GetRandomNumber();
-            int randomStatusCode = randomNumber;
-            int someStatusCode = 200 + randomStatusCode;
+            int someStatusCode = GetRandomStatusCode(startFrom: 200);
             HttpStatusCode someHttpStatusCode = (HttpStatusCode)(someStatusCode);
-            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(randomNumber);
+            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails();
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
 
             this.storageBrokerMock.Setup(broker =>
@@ -50,6 +48,14 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+
+        private static int GetRandomStatusCode(int startFrom)
+        {
+            int randomNumber = GetRandomNumber();
+            int randomStatusCode = randomNumber;
+
+            return startFrom + randomStatusCode;
         }
     }
 }
