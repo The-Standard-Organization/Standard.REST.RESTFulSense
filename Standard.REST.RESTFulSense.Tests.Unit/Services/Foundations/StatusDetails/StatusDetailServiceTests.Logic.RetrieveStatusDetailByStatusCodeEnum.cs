@@ -22,12 +22,7 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
             int randomStatusCode = 400 + randomNumber;
             IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(randomNumber);
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
-            Random random = new Random();
-
-            StatusDetail randomStatusDetail = storageStatusDetails
-                .OrderBy(statusDetail => random.Next())
-                    .Take(1)
-                        .SingleOrDefault();
+            StatusDetail randomStatusDetail = GetRandomStatusDetail(storageStatusDetails);
 
             StatusDetail inputStatusDetail = randomStatusDetail;
             StatusDetail expectedStatusDetail = inputStatusDetail.DeepClone();
@@ -49,6 +44,17 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+
+        private static StatusDetail GetRandomStatusDetail(IQueryable<StatusDetail> storageStatusDetails)
+        {
+            Random random = new Random();
+
+            StatusDetail randomStatusDetail = storageStatusDetails
+                .OrderBy(statusDetail => random.Next())
+                    .Take(1)
+                        .SingleOrDefault();
+            return randomStatusDetail;
         }
     }
 }

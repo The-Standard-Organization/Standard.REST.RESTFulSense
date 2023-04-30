@@ -54,6 +54,18 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         private static int GetRandomNumber(int min = 2, int max = 8) =>
             new IntRange(min, max).GetValue();
 
+        private static StatusDetail GetRandomStatusDetail(IQueryable<StatusDetail> storageStatusDetails)
+        {
+            Random random = new Random();
+
+            StatusDetail randomStatusDetail = storageStatusDetails
+                .OrderBy(statusDetail => random.Next())
+                    .Take(1)
+                        .SingleOrDefault();
+
+            return randomStatusDetail;
+        }
+
         private static IQueryable<StatusDetail> CreateRandomStatusDetails(int randomNumber)
         {
             List<StatusDetail> statusDetails = new List<StatusDetail>();
