@@ -2,7 +2,6 @@
 // Copyright (c) - The Standard Community - All rights reserved.
 // -------------------------------------------------------------
 
-using System;
 using System.Linq;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -18,15 +17,12 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         public void ShouldReturnStatusDetailByStatusCodeEnum()
         {
             // given
-            int randomNumber = GetRandomNumber();
-            int randomStatusCode = 400 + randomNumber;
-            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(randomNumber);
+            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails();
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
             StatusDetail randomStatusDetail = GetRandomStatusDetail(storageStatusDetails);
-
             StatusDetail inputStatusDetail = randomStatusDetail;
-            StatusDetail expectedStatusDetail = inputStatusDetail.DeepClone();
             HttpStatusCode inputHttpStatusCode = (HttpStatusCode)inputStatusDetail.Code;
+            StatusDetail expectedStatusDetail = inputStatusDetail.DeepClone();
 
             this.storageBrokerMock.Setup(broker =>
                 broker.SelectAllStatusDetails())
@@ -44,17 +40,6 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
-        }
-
-        private static StatusDetail GetRandomStatusDetail(IQueryable<StatusDetail> storageStatusDetails)
-        {
-            Random random = new Random();
-
-            StatusDetail randomStatusDetail = storageStatusDetails
-                .OrderBy(statusDetail => random.Next())
-                    .Take(1)
-                        .SingleOrDefault();
-            return randomStatusDetail;
         }
     }
 }

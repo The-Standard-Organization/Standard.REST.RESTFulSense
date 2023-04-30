@@ -66,8 +66,9 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
             return randomStatusDetail;
         }
 
-        private static IQueryable<StatusDetail> CreateRandomStatusDetails(int randomNumber)
+        private static IQueryable<StatusDetail> CreateRandomStatusDetails()
         {
+            int randomNumber = GetRandomNumber();
             List<StatusDetail> statusDetails = new List<StatusDetail>();
 
             for (int i = 0; i < randomNumber; i++)
