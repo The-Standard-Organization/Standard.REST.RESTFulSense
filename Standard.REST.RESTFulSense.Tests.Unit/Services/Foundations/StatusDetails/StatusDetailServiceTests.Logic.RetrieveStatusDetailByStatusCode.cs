@@ -2,8 +2,10 @@
 // Copyright (c) - The Standard Community - All rights reserved.
 // -------------------------------------------------------------
 
+using System;
 using System.Linq;
 using FluentAssertions;
+using Force.DeepCloner;
 using Moq;
 using Standard.REST.RESTFulSense.Models.Foundations.StatusDetails;
 using Xunit;
@@ -13,23 +15,33 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     public partial class StatusDetailServiceTests
     {
         [Fact]
-        public void ShouldReturnStatusDetails()
+        public void ShouldReturnStatusDetailByStatusCode()
         {
             // given
-            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(GetRandomNumber());
+            int randomNumber = GetRandomNumber();
+            int randomStatusCode = 400 + randomNumber;
+            IQueryable<StatusDetail> randomStatusDetails = CreateRandomStatusDetails(randomNumber);
             IQueryable<StatusDetail> storageStatusDetails = randomStatusDetails;
-            IQueryable<StatusDetail> expectedStatusDetails = storageStatusDetails;
+            Random random = new Random();
+
+            StatusDetail randomStatusDetail = storageStatusDetails
+                .OrderBy(statusDetail => random.Next())
+                    .Take(1)
+                        .SingleOrDefault();
+
+            StatusDetail inputStatusDetail = randomStatusDetail;
+            StatusDetail expectedStatusDetail = inputStatusDetail.DeepClone();
 
             this.storageBrokerMock.Setup(broker =>
                 broker.SelectAllStatusDetails())
                     .Returns(storageStatusDetails);
 
             // when
-            IQueryable<StatusDetail> actualStatusDetails =
-                this.statusDetailService.RetrieveAllStatusDetails();
+            StatusDetail actualStatusDetail =
+                this.statusDetailService.RetrieveStatusDetailByCode(inputStatusDetail.Code);
 
             // then
-            actualStatusDetails.Should().BeEquivalentTo(expectedStatusDetails);
+            actualStatusDetail.Should().BeEquivalentTo(expectedStatusDetail);
 
             this.storageBrokerMock.Verify(broker =>
                 broker.SelectAllStatusDetails(),

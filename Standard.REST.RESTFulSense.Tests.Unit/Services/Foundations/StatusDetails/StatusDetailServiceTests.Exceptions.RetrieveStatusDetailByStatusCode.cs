@@ -14,10 +14,12 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
     {
         [Theory]
         [MemberData(nameof(DependencyExceptions))]
-        public void ShouldThrowDependencyExceptionOnRetrieveAllWhenExceptionOccurs(
+        public void ShouldThrowDependencyExceptionOnRetrieveStatusDetailByCodeIfErrorOccurs(
             Exception dependancyException)
         {
             // given
+            int someCode = GetRandomNumber();
+
             var failedStorageException =
                 new FailedStatusDetailStorageException(dependancyException);
 
@@ -29,11 +31,11 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     .Throws(dependancyException);
 
             // when
-            Action retrieveAllStatusDetailsAction = () =>
-                this.statusDetailService.RetrieveAllStatusDetails();
+            Action retrieveStatusDetailByCodeAction = () =>
+                this.statusDetailService.RetrieveStatusDetailByCode(someCode);
 
             StatusDetailDependencyException actualStatusDetailDependencyException =
-                Assert.Throws<StatusDetailDependencyException>(retrieveAllStatusDetailsAction);
+                Assert.Throws<StatusDetailDependencyException>(retrieveStatusDetailByCodeAction);
 
             // then
             actualStatusDetailDependencyException.Should()
@@ -47,9 +49,10 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
         }
 
         [Fact]
-        public void ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccurs()
+        public void ShouldThrowServiceExceptionOnRetrieveStatusDetailByCodeIfServiceErrorOccurs()
         {
             // given
+            int someCode = GetRandomNumber();
             string exceptionMessage = GetRandomString();
             var serviceException = new Exception(exceptionMessage);
 
@@ -64,11 +67,11 @@ namespace Standard.REST.RESTFulSense.Tests.Unit.Services.Foundations.StatusDetai
                     .Throws(serviceException);
 
             // when
-            Action retrieveAllStatusDetailsAction = () =>
-                this.statusDetailService.RetrieveAllStatusDetails();
+            Action retrieveStatusDetailByCodeAction = () =>
+                this.statusDetailService.RetrieveStatusDetailByCode(someCode);
 
             StatusDetailServiceException actualStatusDetailServiceException =
-                Assert.Throws<StatusDetailServiceException>(retrieveAllStatusDetailsAction);
+                Assert.Throws<StatusDetailServiceException>(retrieveStatusDetailByCodeAction);
 
             // then
             actualStatusDetailServiceException.Should()

@@ -17,5 +17,16 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
         public IQueryable<StatusDetail> RetrieveAllStatusDetails() =>
             TryCatch(() => this.storageBroker.SelectAllStatusDetails());
+
+        public StatusDetail RetrieveStatusDetailByCode(int statusCode) =>
+            TryCatch(() =>
+            {
+                StatusDetail maybeStatusDetail = this.storageBroker.SelectAllStatusDetails()
+                    .FirstOrDefault(statusDetail => statusDetail.Code == statusCode);
+
+                ValidateStorageStatusDetail(maybeStatusDetail, statusCode);
+
+                return maybeStatusDetail;
+            });
     }
 }
