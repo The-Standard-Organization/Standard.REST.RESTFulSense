@@ -10,7 +10,7 @@ namespace Standard.REST.RESTFulSense.Models.Foundations.StatusDetails.Exceptions
     public class FailedStatusDetailServiceException : Xeption
     {
         public FailedStatusDetailServiceException(Exception innerException)
-            : base(message: "Failed status detail service occurred, please contact support", innerException)
+            : base(message: "Failed status detail service error occurred, please contact support", innerException)
         { }
     }
 }

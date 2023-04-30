@@ -28,5 +28,18 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.StatusDetails
 
                 return maybeStatusDetail;
             });
+
+        public StatusDetail RetrieveStatusDetailByCode(HttpStatusCode httpStatusCode) =>
+            TryCatch(() =>
+            {
+                int statusCode = (int)httpStatusCode;
+
+                StatusDetail maybeStatusDetail = this.storageBroker.SelectAllStatusDetails()
+                        .FirstOrDefault(statusDetail => statusDetail.Code == statusCode);
+
+                ValidateStorageStatusDetail(maybeStatusDetail, statusCode);
+
+                return maybeStatusDetail;
+            });
     }
 }
