@@ -58,6 +58,13 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.Serializations
 
                 throw CreateAndLogDependencyException(failedSerializationException);
             }
+            catch (Exception exception)
+            {
+                var failedSerializationServiceException =
+                    new FailedSerializationServiceException(exception);
+
+                throw CreateAndLogServiceException(failedSerializationServiceException);
+            }
         }
 
         private SerializationValidationException CreateAndLogValidationException(Xeption exception)
@@ -82,6 +89,14 @@ namespace Standard.REST.RESTFulSense.Services.Foundations.Serializations
                 new SerializationDependencyException(exception);
 
             return serializationDependencyException;
+        }
+
+        private SerializationServiceException CreateAndLogServiceException(Xeption exception)
+        {
+            var serializationServiceException =
+                new SerializationServiceException(exception);
+
+            return serializationServiceException;
         }
     }
 }
