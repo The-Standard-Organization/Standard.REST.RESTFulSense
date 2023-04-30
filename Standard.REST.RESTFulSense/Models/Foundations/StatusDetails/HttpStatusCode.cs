@@ -2,7 +2,7 @@
 // Copyright (c) - The Standard Community - All rights reserved.
 // -------------------------------------------------------------
 
-namespace Standard.REST.RESTFulSense.Models.HttpStatusCodes
+namespace Standard.REST.RESTFulSense.Models.Foundations.StatusDetails
 {
     internal enum HttpStatusCode
     {
