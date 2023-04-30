@@ -36,6 +36,7 @@
 		</None>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+		<PackageReference Include="Xeption" Version="2.5.0" />
 		<None Update="Data\StatusCodes.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
